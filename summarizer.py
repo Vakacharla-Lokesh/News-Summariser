@@ -33,7 +33,9 @@ def summarize_article(url):
 
     # Perform sentiment analysis
     analysis = TextBlob(summary)
-    sentiment = analysis.sentiment
+    # sentiment = analysis.sentiment
+    sentiment_polarity = analysis.sentiment.polarity
+    sentiment_subjectivity = analysis.sentiment.subjectivity
 
     # Extract website name
     parsed_url = urlparse(url)
@@ -48,8 +50,8 @@ def summarize_article(url):
         'publication_date': publication_date,
         'summary': summary,
         'sentiment': {
-            'polarity': sentiment.polarity,
-            'subjectivity': sentiment.subjectivity
+            'polarity': sentiment_polarity,
+            'subjectivity': sentiment_subjectivity
         },
         'website_name': website_name
     }

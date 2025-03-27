@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -64,17 +64,17 @@
 </head>
 <body>
 
-    <button class="open-btn" onclick="openPopup()">Open Content</button>
+    <!-- <button class="open-btn" onclick="openPopup()">Open Content</button> -->
 
     <!-- Overlay -->
-    <div class="overlay" id="overlay" onclick="closePopup()"></div>
+    <!-- <div class="overlay" id="overlay" onclick="closePopup()"></div> -->
 
     <!-- Pop-up content -->
-    <div class="popup" id="popup">
-        <button class="close-btn" onclick="closePopup()">X</button>
-        <h2>Popup Content</h2>
-        <p>This is some information displayed in a pop-up box.</p>
-    </div>
+    <!-- <div class="popup" id="popup"> -->
+        <!-- <button class="close-btn" onclick="closePopup()">X</button> -->
+        <!-- <h2>Popup Content</h2> -->
+        <!-- <p>This is some information displayed in a pop-up box.</p> -->
+    <!-- </div>
 
     <script>
         function openPopup() {
@@ -86,7 +86,134 @@
             document.getElementById("popup").style.display = "none";
             document.getElementById("overlay").style.display = "none";
         }
+    </script> -->
+
+    <!-- <h1>{{ data.title }}</h1>
+    <p><strong>Summary:</strong> {{ data.summary }}</p>
+    <p><strong>Authors:</strong> {{ ", ".join(data.authors) if data.authors else "Unknown" }}</p>
+    <p><strong>Published On:</strong> {{ data.publication_date if data.publication_date else "Not Available" }}</p>
+    <p><strong>Sentiment:</strong> Polarity - {{ data.sentiment.polarity }}, Subjectivity - {{ data.sentiment.subjectivity }}</p>
+    <p><strong>Source:</strong> {{ data.website_name }}</p>
+
+</body>
+</html> --> 
+
+<!-- NEW CODE -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summarized Article</title>
+    
+    <!-- Chart.js for Graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            max-width: 800px;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #222;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        strong {
+            color: #000;
+        }
+
+        .chart-container {
+            margin-top: 20px;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #007bff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            font-size: 14px;
+        }
+
+        .back-button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Back Button -->
+    <button class="back-button" onclick="goBack()">← Back</button>
+
+    <div class="container">
+        <h1>{{ data.title }}</h1>
+        <p><strong>Summary:</strong> {{ data.summary }}</p>
+        <p><strong>Authors:</strong> {{ ", ".join(data.authors) if data.authors else "Unknown" }}</p>
+        <p><strong>Published On:</strong> {{ data.publication_date if data.publication_date else "Not Available" }}</p>
+        <p><strong>Source:</strong> {{ data.website_name }}</p>
+
+        <!-- Sentiment Graph -->
+        <div class="chart-container">
+            <canvas id="sentimentChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.location.href = '/';
+        }
+
+        // Sentiment Data
+        const sentimentData = {
+            labels: ["Polarity (Positive/Negative)", "Subjectivity (Fact vs. Opinion)"],
+            datasets: [{
+                label: "Sentiment Analysis",
+                data: [{{ data.sentiment.polarity }}, {{ data.sentiment.subjectivity }}],
+                backgroundColor: ["#007bff", "#ffc107"]
+            }]
+        };
+
+        // Chart Configuration
+        const config = {
+            type: "bar",
+            data: sentimentData,
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true, min: -1, max: 1 }
+                }
+            }
+        };
+
+        // Render Chart
+        new Chart(document.getElementById("sentimentChart"), config);
     </script>
 
 </body>
 </html>
+

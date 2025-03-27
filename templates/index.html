@@ -13,11 +13,12 @@
                 <p>This is some information displayed in a pop-up box.</p>
             </div>
             
-            <article onclick="openPopup()">
-                <!-- <h2><a href="{{ article[1].link }}">{{ article[1].title }}</a></h2> -->
+            <article>
+                <h2><a href="{{ article[1].link }}">{{ article[1].title }}</a></h2>
                 <h2 class = "article-title">{{ article[1].title }}</h2>
                 <p>{{ article[1].published }}</p>
                 <p>Source: {{ article[0] }}</p>
+                <button data-url="{{article[1].link}}" onclick="sendData(this)">Summarize</button>
             </article>
         {% endfor %}
     </div>
@@ -28,6 +29,10 @@
         {% if page < total_pages %}
             <a href="{{ url_for('index', page=page+1) }}">Next</a>
         {% endif %}
+    </div>
+
+    <div>
+        <button onclick="redirectToAddSource()">Add New Source</button>
     </div>
 
     <script>
@@ -42,6 +47,15 @@
         function closePopup() {
             document.getElementById("popup").style.display = "none";
             document.getElementById("overlay").style.display = "none";
+        }
+
+        function sendData(button){
+            let url = button.getAttribute("data-url");
+            window.location.href = "/summarize?url=" + url;
+        }
+
+        function redirectToAddSource() {
+            window.location.href = "/add_source";
         }
     </script>
 
